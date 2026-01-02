@@ -20,7 +20,7 @@ import { StoreKey } from "./constants";
 import { checkFileMime, getFileNative, getFileWeb, hexToBase64 } from "./utils";
 
 const VoiceMessage = findComponentByCodeLazy("waveform:", "onVolumeChange");
-const PanelButton = findComponentByCodeLazy(".NONE,disabled:", ".PANEL_BUTTON");
+const PanelButton = findComponentByCodeLazy(".greenTooltip,", ".greenTooltipContent");
 
 const selectedChannelStore = findStoreLazy("SelectedChannelStore") as {
     getVoiceChannelId(): string | null;
