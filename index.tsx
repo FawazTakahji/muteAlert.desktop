@@ -8,19 +8,20 @@ import "./styles.css";
 
 import { DataStore } from "@api/index";
 import { definePluginSettings } from "@api/Settings";
+import { Button } from "@components/Button";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Logger } from "@utils/Logger";
 import { classes } from "@utils/misc";
 import { useForceUpdater } from "@utils/react";
 import definePlugin, { OptionType } from "@utils/types";
 import { findComponentByCodeLazy, findStoreLazy } from "@webpack";
-import { Button, React, Toasts } from "@webpack/common";
+import { React, Toasts } from "@webpack/common";
 
 import { StoreKey } from "./constants";
 import { checkFileMime, getFileNative, getFileWeb, hexToBase64 } from "./utils";
 
 const VoiceMessage = findComponentByCodeLazy("waveform:", "onVolumeChange");
-const PanelButton = findComponentByCodeLazy(".greenTooltip,", ".greenTooltipContent");
+const PanelButton = findComponentByCodeLazy(".GREEN,positionKeyStemOverride:");
 
 const selectedChannelStore = findStoreLazy("SelectedChannelStore") as {
     getVoiceChannelId(): string | null;
@@ -88,7 +89,7 @@ export default definePlugin({
     {
         find: "renderNoiseCancellation",
         replacement: {
-            match: /className:\i\.voiceButtonsContainer,children:\[/,
+            match: /children:\[(?=\i\?this\.renderNoiseCancellation\(\))/,
             replace: "$&$self.pauseButton(),"
         }
     }],
@@ -226,7 +227,7 @@ function CustomAudioComponent(): React.ReactNode {
                     Pick Audio
                 </Button>
 
-                <Button color={Button.Colors.RED}
+                <Button color={"RED"}
                     disabled={!settings.store.useCustomAudio || !base64Uri}
                     onClick={() => {
                         removeAudio();
